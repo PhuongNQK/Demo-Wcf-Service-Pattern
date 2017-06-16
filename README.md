@@ -81,10 +81,10 @@ Note:
 ## How to run
 The current configuration allows us to test the whole solution in a single PC. 
 1. Install *Demo.Services.HelloWcfHost* as a Windows service and start it so that the service will be available at *localhost:8001*. File *hello-wcf-host.bat* can help you with all that: 
-  1. Open a *Command Prompt* as Administrator from the folder containing that file (*...\Demo.Services.HelloWcfHost*).
-  2. Type *hello-wcf-host.bat install* to install the test service
-  3. Type *hello-wcf-host.bat start* to start it
-  4. After testing, you can run *hello-wcf-host.bat uninstall* to remove the test service.
+    1. Open a *Command Prompt* as Administrator from the folder containing that file (*...\Demo.Services.HelloWcfHost*).
+    2. Type *hello-wcf-host.bat install* to install the test service
+    3. Type *hello-wcf-host.bat start* to start it
+    4. After testing, you can run *hello-wcf-host.bat uninstall* to remove the test service.
 2. Run *Demo.ConsoleApp.HelloWcfHost* so that the service will be available at *localhost:8003*.
 3. Update web.config and run *Demo.Web.HelloWcf* to connect to the service you love. In the current setting, it will connect to *localhost:8001*.
 4. Update app.config and run *Demo.ConsoleApp.HelloWcfClient* to connect to the service you love. In the current setting, it will connect to *localhost:8001*.
