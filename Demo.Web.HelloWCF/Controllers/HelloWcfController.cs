@@ -97,6 +97,58 @@ namespace Demo.Web.HelloWcf.Controllers
             return JsonGet(new { data = response.Message });
         }
 
+        /// <summary>
+        /// Demonstrate how to use <see cref="IOldStyledHelloWcfClient"/> asynchronously
+        /// via Task-based pattern when async/await keywords are not available, i.e. 
+        /// in MVC3 or earlier.
+        /// </summary>
+        public void OldStyled_TaskAsync()
+        {
+            AsyncManager.OutstandingOperations.Increment();
+
+            var person = new Person()
+            {
+                Name = "OldStyled_Task",
+                Age = 30
+            };
+            var request = new SayHelloRequest() { Person = person };
+
+            var client = GetOldStyledHelloWcfClient();
+            client
+                .SayHelloAsTask(request)
+                .ContinueWith(antecedent =>
+                {
+                    AsyncManager.Parameters["response"] = antecedent.Result;
+                    AsyncManager.OutstandingOperations.Decrement();
+                });
+        }
+
+        public JsonResult OldStyled_TaskCompleted(SayHelloResponse response)
+        {
+            return JsonGet(new { data = response.Message });
+        }
+
+        /// <summary>
+        /// Demonstrate how to use <see cref="IOldStyledHelloWcfClient"/> asynchronously 
+        /// via Task-based pattern when async/await keywords are available, i.e. in MVC4
+        /// or later.
+        /// </summary>
+        public async Task<JsonResult> OldStyled_TaskWithAsyncAwait()
+        {
+            var person = new Person()
+            {
+                Name = nameof(OldStyled_TaskWithAsyncAwait),
+                Age = 30
+            };
+            var request = new SayHelloRequest() { Person = person };
+
+            using (var client = GetOldStyledHelloWcfClient())
+            {
+                SayHelloResponse response = await client.SayHelloAsTask(request);
+                return JsonGet(new { data = response.Message });
+            }
+        }
+
         #endregion HelloWcfClient
 
 
@@ -250,12 +302,12 @@ namespace Demo.Web.HelloWcf.Controllers
         * possible using <see cref="OldStyledHelloWcfClient"/>.
         */
         #region Generic request/response
- 
+
         public JsonResult NewStyled_Generic()
         {
             var data = new Person() { Name = nameof(NewStyled_Generic), Age = 30 };
             var request = BuildGenericRequest(data);
-            
+
             GenericResponse<Person> response;
             using (var client = GetNewStyledHelloWcfClient())
             {
@@ -331,7 +383,7 @@ namespace Demo.Web.HelloWcf.Controllers
         {
             return Json(data, JsonRequestBehavior.AllowGet);
         }
-        
+
         private static NewStyledHelloWcfClient GetNewStyledHelloWcfClient()
         {
             return new NewStyledHelloWcfClient(Names.ClientEndpoints.HelloWcf);

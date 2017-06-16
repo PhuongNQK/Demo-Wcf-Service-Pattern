@@ -18,15 +18,18 @@ namespace Interfaces.Demo.Services.HelloWcf.Proxies
     /// using Async/Completed style
     /// - 1 member that allows the action to be asynchronously executed
     /// using Task style
+    /// 
+    /// Also, this interface needs attributing with <see cref="ServiceContractAttribute"/>
+    /// and some of its actions need attributing with <see cref="OperationContractAttribute"/>.
     /// </summary>
     [ServiceContract(
         Name = Values.Service.InterfaceName,
         ConfigurationName = Values.Client.ConfigurationName,
         Namespace = Values.Service.Namespace
      )]
-    public interface IOldStyledHelloWcfClient // Note that our client interface can extend the original service interface
+    public interface IOldStyledHelloWcfClient // Note that our client interface can extend the original service interface, but here I want to focus on SayHello and ignore SayHelloGeneric
     {
-        [OperationContract]
+        [OperationContract] // Synchronous XXX must be marked with OperationContract like this
         SayHelloResponse SayHello(SayHelloRequest request);
 
         [OperationContract(AsyncPattern = true)] // BeginXXX must be marked with OperationContract like this
@@ -35,9 +38,9 @@ namespace Interfaces.Demo.Services.HelloWcf.Proxies
         SayHelloResponse EndSayHello(IAsyncResult result);
 
         event EventHandler<CustomAsyncCompletedEventArgs<SayHelloResponse>> SayHelloCompleted;
-
+                
         void SayHelloAsync(SayHelloRequest request, object userState = null);
 
-        Task<SayHelloResponse> OperateAsTask(SayHelloRequest request);
+        Task<SayHelloResponse> SayHelloAsTask(SayHelloRequest request);
     }
 }

@@ -67,7 +67,7 @@ namespace Interfaces.Demo.Services.HelloWcf.Proxies
 
         #region Task-styled
 
-        public Task<SayHelloResponse> OperateAsTask(SayHelloRequest request)
+        public Task<SayHelloResponse> SayHelloAsTask(SayHelloRequest request)
         {
             return Task.Factory.FromAsync(
                 (callback, state) => Channel.BeginSayHello(request, callback, state),
