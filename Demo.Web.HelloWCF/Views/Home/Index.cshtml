@@ -1,0 +1,48 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<h2>Welcome to ASP.NET MVC + WCF!</h2>
+
+<h3>HelloWcfClient: Old-styled vs. New-styled</h3>
+<h4>This section contains calls to the old-styled HelloWcfClient</h4>
+<ul>
+    <li><a href="/HelloWcf/OldStyled_Sync">synchronously</a></li>
+    <li><a href="/HelloWcf/OldStyled_BE">asynchronously via Begin/End pattern</a></li>
+    <li><a href="/HelloWcf/OldStyled_AC">asynchronously via Async/Completed pattern</a></li>
+</ul>
+<h4>This section contains calls to the new-styled HelloWcfClient</h4>
+<ul>
+    <li><a href="/HelloWcf/NewStyled_Sync">synchronously</a></li>
+    <li><a href="/HelloWcf/NewStyled_BE">asynchronously via Begin/End pattern</a></li>
+    <li><a href="/HelloWcf/NewStyled_AC">asynchronously via Async/Completed pattern</a></li>
+    <li><a href="/HelloWcf/NewStyled_Task">asynchronously via Task-based pattern when async/await keywords are not available, i.e. in MVC3 or earlier</a></li>
+    <li><a href="/HelloWcf/NewStyled_TaskWithAsyncAwait">asynchronously via Task-based pattern when async/await keywords are available, i.e. in MVC4 or later</a></li>
+</ul>
+
+<h3>NewStyledHelloWcfClient supports generics, which old-styled version cannot</h3>
+<ul>
+    <li><a href="/HelloWcf/NewStyled_Generic">Case 1</a></li>
+    <li><a href="/HelloWcf/NewStyled_Generic2">Case 2</a></li>
+    <li><a href="/HelloWcf/NewStyled_Generic3">Case 3</a></li>
+</ul>
+
+@*  For the purpose of this demo, it is fine to place this short script here.
+    For production code (which is often much longer), it is recommended that 
+    scripts should be placed in .js files under Scripts folder. *@
+@section Scripts
+{
+<script>
+    $(function () {
+        $('a').click(function (e) {
+            e.preventDefault();
+
+            var url = $(this).attr('href');
+            var onSuccess = function (data) {
+                alert(JSON.stringify(data));
+            };
+
+            $.get(url, onSuccess, 'json');
+        });
+    });
+</script>
+}
