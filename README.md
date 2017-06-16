@@ -5,15 +5,15 @@
 # Introduction
 WCF is a great software development kit for developing and deploying services, many types from Internet-based to Intranet-based. With the assistance of Visual Studio IDE and SDK tools, it is even easier to apply WCF. What you typically do to create and consume a service should be:
 1. For the service:
-..- Create a project for the service
-..- Define an interface with proper attributes (for example, *ServiceContract*, *OperationContract*) applied
-..- Implement that interface
-..- Implement a host for it
-..- Build, configure and run that project so that we have a service ready for comsumption
+  - Create a project for the service
+  - Define an interface with proper attributes (for example, *ServiceContract*, *OperationContract*) applied
+  - Implement that interface
+  - Implement a host for it
+  - Build, configure and run that project so that we have a service ready for comsumption
 2. For the service client:
-..- Create a project for the service client
-..- Use *Add Service Reference* command to generate proxy code to the service
-..- Add the code that uses the auto-generated proxy
+  - Create a project for the service client
+  - Use *Add Service Reference* command to generate proxy code to the service
+  - Add the code that uses the auto-generated proxy
 
 Those steps work, but there are some limitations:
 1. Previously, the generated proxy code could not contain generics. For each original generics-based class, there would be a non-generic version to be generated. Because I am a fan of generics, this limitation made me annoyed a lot. Luckily, this limitation has been removed at least from Visual Studio 2015.
@@ -81,10 +81,10 @@ Note:
 ## How to run
 The current configuration allows us to test the whole solution in a single PC. 
 1. Install *Demo.Services.HelloWcfHost* as a Windows service and start it so that the service will be available at *localhost:8001*. File *hello-wcf-host.bat* can help you with all that: 
-..1. Open a *Command Prompt* as Administrator from the folder containing that file (*...\Demo.Services.HelloWcfHost*).
-..2. Type *hello-wcf-host.bat install* to install the test service
-..3. Type *hello-wcf-host.bat start* to start it
-..4. After testing, you can run *hello-wcf-host.bat uninstall* to remove the test service.
+  1. Open a *Command Prompt* as Administrator from the folder containing that file (*...\Demo.Services.HelloWcfHost*).
+  2. Type *hello-wcf-host.bat install* to install the test service
+  3. Type *hello-wcf-host.bat start* to start it
+  4. After testing, you can run *hello-wcf-host.bat uninstall* to remove the test service.
 2. Run *Demo.ConsoleApp.HelloWcfHost* so that the service will be available at *localhost:8003*.
 3. Update web.config and run *Demo.Web.HelloWcf* to connect to the service you love. In the current setting, it will connect to *localhost:8001*.
 4. Update app.config and run *Demo.ConsoleApp.HelloWcfClient* to connect to the service you love. In the current setting, it will connect to *localhost:8001*.
