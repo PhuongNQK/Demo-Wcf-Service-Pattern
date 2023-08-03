@@ -66,6 +66,7 @@ The code will be organized using these projects:
 With the above setup, if you run *Add Service Reference* using only the following *Advanced* options checked:
 1. *Allow generation of asynchronous operations* and *Generate task-based operations*
 2. *Reuse types in referenced assemblies* and *Reuse types in all referenced assemblies*
+
 you will have a rather nice generated code. Try it!
 
 Note:
